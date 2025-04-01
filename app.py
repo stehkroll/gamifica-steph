@@ -17,7 +17,7 @@ hoje = datetime.today().strftime('%Y-%m-%d')
 tarefas = pd.read_csv("data/tarefas.csv")
 
 # Mostra painel de tarefas e retorna pontos do dia
-pontos = mostrar_painel_tarefas(tarefas, hoje)
+pontos = mostrar_painel_tarefas(tarefas)
 
 # Calcula nível, progresso e XP para o próximo nível
 nivel, xp_atual, xp_proximo_nivel, progresso = calcular_nivel(pontos)
