@@ -11,13 +11,13 @@ def mostrar_painel_recompensas(pontos_disponiveis):
     for i, row in recompensas.iterrows():
         col1, col2 = st.columns([1, 4])
         with col1:
-            st.markdown("🎉")  
+            st.markdown("")  # Deixa vazio por padrão
         with col2:
             st.markdown(f"### {row['Nome']}")
             st.markdown(f"🪙 **{row['Pontos']} pontos**")
             if pontos_disponiveis >= row["Pontos"]:
                 if st.button(f"✨ Resgatar", key=f"resgatar_{i}"):
                     st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
+                    col1.markdown("🎉")  # Só mostra o emoji depois de clicar
             else:
                 st.info(f"🔒 Faltam {row['Pontos'] - pontos_disponiveis} pontos para liberar")
-
