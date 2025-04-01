@@ -2,11 +2,11 @@ import streamlit as st
 import pandas as pd
 
 def mostrar_painel_recompensas(pontos_disponiveis):
-    st.subheader("🎁 Minhas recompensas lindas")  # teste pra ver se atualizou mesmo
+    st.subheader("🎁 Minhas recompensas")
 
     recompensas = pd.read_csv("data/recompensas.csv", sep=";")
     recompensas.columns = recompensas.columns.str.strip()
-    st.write("🔍 Colunas detectadas:", recompensas.columns.tolist())  # debug
+    st.write("🔍 Colunas no CSV:", recompensas.columns.tolist())  # Debug pra ver as colunas
 
     cores_borda = {
         "Pequena": "#A8E6CF",
