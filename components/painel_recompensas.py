@@ -11,7 +11,7 @@ def mostrar_painel_recompensas(pontos_disponiveis):
     for i, row in recompensas.iterrows():
         col1, col2 = st.columns([1, 4])
         with col1:
-            st.image(f"assets/recompensas/{row['Imagem']}", width=64)
+            st.markdown(f"<span style='font-size:48px'>{row['Emoji']}</span>", unsafe_allow_html=True)
         with col2:
             st.markdown(f"### {row['Nome']}")
             st.markdown(f"🪙 **{row['Pontos']} pontos**")
