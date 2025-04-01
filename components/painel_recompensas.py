@@ -25,8 +25,8 @@ def mostrar_painel_recompensas(pontos_disponiveis):
         with st.container():
             st.markdown(f"<div style='{estilo_caixa}'>", unsafe_allow_html=True)
             col1, col2 = st.columns([1, 4])
-            with col1:
-                st.markdown(f"<h2 style='margin: 0;'>{row['Emoji']}</h2>", unsafe_allow_html=True)
+           with col1:
+    st.markdown(f"<h2 style='margin: 0;'>{row['Nome'].split()[-1]}</h2>", unsafe_allow_html=True)
             with col2:
                 st.markdown(f"### {row['Nome']}")
                 st.markdown(f"🪙 **{row['Pontos']} pontos**")
