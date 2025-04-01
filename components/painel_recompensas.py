@@ -4,10 +4,12 @@ import pandas as pd
 def mostrar_painel_recompensas(pontos_disponiveis):
     st.subheader("🎁 Recompensas")
 
-    recompensas = pd.read_csv("data/recompensas.csv")
-st.write("Colunas no CSV:", recompensas.columns.tolist())
-    recompensas.columns = recompensas.columns.str.strip()
+    recompensas = pd.read_csv("data/recompensas.csv", sep=";")  # Se estiver com ponto e vírgula!
+    recompensas.columns = recompensas.columns.str.strip()  # Tira espaços invisíveis
 
+    st.write("🧪 Colunas no CSV:", recompensas.columns.tolist())  # Diagnóstico
+
+    # Define cores de borda
     cores_borda = {
         "Pequena": "#A8E6CF",
         "Média": "#AEDFF7",
@@ -27,8 +29,11 @@ st.write("Colunas no CSV:", recompensas.columns.tolist())
         with st.container():
             st.markdown(f"<div style='{estilo_caixa}'>", unsafe_allow_html=True)
             col1, col2 = st.columns([1, 4])
-           with col1:
-    st.markdown(f"<h2 style='margin: 0;'>{row['Nome'].split()[-1]}</h2>", unsafe_allow_html=True)
+
+            with col1:
+                # Mostra o último emoji do nome
+                st.markdown(f"<h2 style='margin: 0;'>{row['Nome'].split()[-1]}</h2>", unsafe_allow_html=True)
+
             with col2:
                 st.markdown(f"### {row['Nome']}")
                 st.markdown(f"🪙 **{row['Pontos']} pontos**")
@@ -37,4 +42,5 @@ st.write("Colunas no CSV:", recompensas.columns.tolist())
                         st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
                 else:
                     st.info(f"🔒 Faltam {row['Pontos'] - pontos_disponiveis} pontos para liberar")
+
             st.markdown("</div>", unsafe_allow_html=True)
