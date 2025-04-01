@@ -28,11 +28,11 @@ st.subheader(f"📊 Nível {nivel}")
 st.progress(progresso)
 st.caption(f"Você está a {xp_proximo_nivel - xp_atual} XP de alcançar o nível {nivel + 1}!")
 
-# Personalização do Personagem
+# Personagem
 st.markdown("---")
 st.subheader("🧍 Personalização do Personagem")
 
-# Escolhas do usuário para personalização
+# Escolhas do usuário
 olho_escolhido = st.selectbox("Escolha a cor dos olhos:", [
     "castanho", "azul", "verde", "roxo", "vermelho", "rosa"
 ])
@@ -49,7 +49,7 @@ cor_cabelo = st.selectbox("Escolha a cor do cabelo:", [
     "azul", "verde", "loiro", "branco"
 ])
 
-# Combina estilo com cor para o cabelo
+# Combina estilo com cor
 cabelo_escolhido = f"{estilo_cabelo}_{cor_cabelo}"
 
 # Mostra personagem com as escolhas feitas
@@ -61,4 +61,10 @@ progresso_df.to_csv("data/progresso.csv", index=False)
 
 # Mostra painel de recompensas
 st.markdown("---")
+
+# Aqui chamamos o painel de recompensas
 mostrar_painel_recompensas(pontos)
+
+# Para verificar o que está acontecendo com o CSV
+recompensas = pd.read_csv("data/recompensas.csv")
+st.write("Colunas carregadas no CSV:", recompensas.columns.tolist())  # Exibe as colunas carregadas
