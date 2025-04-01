@@ -5,6 +5,7 @@ def mostrar_painel_recompensas(pontos_disponiveis):
     st.subheader("🎁 Recompensas")
 
     recompensas = pd.read_csv("data/recompensas.csv")
+    recompensas.columns = recompensas.columns.str.strip()
 
     cores_borda = {
         "Pequena": "#A8E6CF",
