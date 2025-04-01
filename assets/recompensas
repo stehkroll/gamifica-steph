@@ -1,7 +1,11 @@
-Nome,Pontos,Emoji
-Pizza 🍕,30,🍕
-Episódio de série,15,📺
-Pedido de delivery,50,🍔
-Banho relaxante,10,🛁
-Tempo com jogo favorito,20,🎮
-
+Nome,Pontos,Emoji,Tipo,Desbloqueada
+Tomar café em paz,20,☕,Pequena,False
+Ver episódio de série,25,📺,Pequena,False
+Comer um docinho,25,🍫,Pequena,False
+Skincare com playlist,30,💆‍♀️,Pequena,False
+Jogar videogame,40,🎮,Média,False
+Ver um filme,45,🍿,Média,False
+Comprar um mimo baratinho,100,💸,Grande,False
+Pedir comida,150,🍕,Grande,False
+Comprar algo especial,200,🛍️,Épica,False
+Um dia off sem culpa,100,🛌,Grande,False
