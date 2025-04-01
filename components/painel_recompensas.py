@@ -2,12 +2,11 @@ import streamlit as st
 import pandas as pd
 
 def mostrar_painel_recompensas(pontos_disponiveis):
-    st.subheader("🎁 Recompensas")
+    st.subheader("🎁 Minhas recompensas lindas")  # teste pra ver se atualizou mesmo
 
     recompensas = pd.read_csv("data/recompensas.csv", sep=";")
     recompensas.columns = recompensas.columns.str.strip()
-
-    st.write("🧪 Colunas no CSV:", recompensas.columns.tolist())
+    st.write("🔍 Colunas detectadas:", recompensas.columns.tolist())  # debug
 
     cores_borda = {
         "Pequena": "#A8E6CF",
@@ -28,10 +27,8 @@ def mostrar_painel_recompensas(pontos_disponiveis):
         with st.container():
             st.markdown(f"<div style='{estilo_caixa}'>", unsafe_allow_html=True)
             col1, col2 = st.columns([1, 4])
-
             with col1:
                 st.markdown(f"<h2 style='margin: 0;'>{row['Nome'].split()[-1]}</h2>", unsafe_allow_html=True)
-
             with col2:
                 st.markdown(f"### {row['Nome']}")
                 st.markdown(f"🪙 **{row['Pontos']} pontos**")
@@ -40,5 +37,4 @@ def mostrar_painel_recompensas(pontos_disponiveis):
                         st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
                 else:
                     st.info(f"🔒 Faltam {row['Pontos'] - pontos_disponiveis} pontos para liberar")
-
             st.markdown("</div>", unsafe_allow_html=True)
