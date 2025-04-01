@@ -4,11 +4,13 @@ import pandas as pd
 def mostrar_painel_recompensas(pontos_disponiveis):
     st.subheader("🎁 Recompensas")
 
-    # Lê o CSV normalmente com vírgula (padrão)
     recompensas = pd.read_csv("data/recompensas.csv")
-    recompensas.columns = recompensas.columns.str.strip()  # Remove espaços acidentais
+    recompensas.columns = recompensas.columns.str.strip()  # tira espaços invisíveis
 
-    # Cores das bordas por tipo de recompensa
+    # 💡 Debug: ver colunas e prévia do arquivo
+    st.write("Colunas do CSV:", recompensas.columns.tolist())
+    st.write("Prévia das recompensas:", recompensas.head())
+
     cores_borda = {
         "Pequena": "#A8E6CF",
         "Média": "#AEDFF7",
