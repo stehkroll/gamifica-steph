@@ -4,6 +4,7 @@ from components.painel_tarefas import mostrar_painel_tarefas
 from components.painel_recompensas import mostrar_painel_recompensas
 from logic.niveis import calcular_nivel
 from datetime import datetime
+from components.personagem import montar_personagem
 
 # Configuração da página
 st.set_page_config(page_title="Gamificação da Rotina", layout="centered")
@@ -34,3 +35,5 @@ progresso_df.to_csv("data/progresso.csv", index=False)
 # Mostra painel de recompensas
 st.markdown("---")
 mostrar_painel_recompensas(pontos)
+
+
