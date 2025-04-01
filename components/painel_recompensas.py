@@ -2,12 +2,13 @@ import streamlit as st
 import pandas as pd
 
 def mostrar_painel_recompensas(pontos_disponiveis):
-    st.subheader("🎁 Minhas recompensas")
+    st.subheader("🎁 Recompensas")
 
-    recompensas = pd.read_csv("data/recompensas.csv", sep=";")
-    recompensas.columns = recompensas.columns.str.strip()
-    st.write("🔍 Colunas no CSV:", recompensas.columns.tolist())  # Debug pra ver as colunas
+    # Lê o CSV normalmente com vírgula (padrão)
+    recompensas = pd.read_csv("data/recompensas.csv")
+    recompensas.columns = recompensas.columns.str.strip()  # Remove espaços acidentais
 
+    # Cores das bordas por tipo de recompensa
     cores_borda = {
         "Pequena": "#A8E6CF",
         "Média": "#AEDFF7",
@@ -17,6 +18,7 @@ def mostrar_painel_recompensas(pontos_disponiveis):
 
     for i, row in recompensas.iterrows():
         cor_borda = cores_borda.get(row["Tipo"], "#CCCCCC")
+
         estilo_caixa = f"""
             border: 3px solid {cor_borda};
             border-radius: 12px;
@@ -27,14 +29,18 @@ def mostrar_painel_recompensas(pontos_disponiveis):
         with st.container():
             st.markdown(f"<div style='{estilo_caixa}'>", unsafe_allow_html=True)
             col1, col2 = st.columns([1, 4])
+
             with col1:
-                st.markdown(f"<h2 style='margin: 0;'>{row['Nome'].split()[-1]}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='margin: 0;'>{row['Emoji']}</h2>", unsafe_allow_html=True)
+
             with col2:
                 st.markdown(f"### {row['Nome']}")
                 st.markdown(f"🪙 **{row['Pontos']} pontos**")
+
                 if pontos_disponiveis >= row["Pontos"]:
-                    if st.button(f"✨ Resgatar", key=f"resgatar_{i}"):
+                    if st.button("✨ Resgatar", key=f"resgatar_{i}"):
                         st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
                 else:
                     st.info(f"🔒 Faltam {row['Pontos'] - pontos_disponiveis} pontos para liberar")
+
             st.markdown("</div>", unsafe_allow_html=True)
