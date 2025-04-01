@@ -4,12 +4,11 @@ import pandas as pd
 def mostrar_painel_recompensas(pontos_disponiveis):
     st.subheader("🎁 Recompensas")
 
-    recompensas = pd.read_csv("data/recompensas.csv", sep=";")  # Se estiver com ponto e vírgula!
-    recompensas.columns = recompensas.columns.str.strip()  # Tira espaços invisíveis
+    recompensas = pd.read_csv("data/recompensas.csv", sep=";")
+    recompensas.columns = recompensas.columns.str.strip()
 
-    st.write("🧪 Colunas no CSV:", recompensas.columns.tolist())  # Diagnóstico
+    st.write("🧪 Colunas no CSV:", recompensas.columns.tolist())
 
-    # Define cores de borda
     cores_borda = {
         "Pequena": "#A8E6CF",
         "Média": "#AEDFF7",
@@ -31,7 +30,6 @@ def mostrar_painel_recompensas(pontos_disponiveis):
             col1, col2 = st.columns([1, 4])
 
             with col1:
-                # Mostra o último emoji do nome
                 st.markdown(f"<h2 style='margin: 0;'>{row['Nome'].split()[-1]}</h2>", unsafe_allow_html=True)
 
             with col2:
