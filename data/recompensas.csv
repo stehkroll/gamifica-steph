@@ -1,11 +1,11 @@
-Nome,Pontos,Imagem,Tipo,Desbloqueada
-Tomar café em paz ☕,20,cafe.png,Pequena,False
-Ver episódio de série 📺,25,serie.png,Pequena,False
-Comer um docinho 🍫,25,docinho.png,Pequena,False
-Skincare com playlist 💆‍♀️,30,skincare.png,Pequena,False
-Jogar videogame 🎮,40,controle.png,Média,False
-Ver um filme 🍿,45,filme.png,Média,False
-Comprar um mimo baratinho 💸,50,mimo.png,Média,False
-Pedir comida 🍕,60,comida.png,Grande,False
-Comprar algo especial 🛍️,70,compra.png,Grande,False
-Um dia off sem culpa 🛌,80,descanso.png,Grande,False
+Nome,Pontos,Tipo,Desbloqueada
+Tomar café em paz ☕,20,Pequena,False
+Ver episódio de série 📺,25,Pequena,False
+Comer um docinho 🍫,25,Pequena,False
+Skincare com playlist 💆‍♀️,30,Pequena,False
+Jogar videogame 🎮,40,Média,False
+Ver um filme 🍿,45,Média,False
+Comprar um mimo baratinho 💸,50,Média,False
+Pedir comida 🍕,60,Grande,False
+Comprar algo especial 🛍️,70,Grande,False
+Um dia off sem culpa 🛌,80,Grande,False
