@@ -43,7 +43,7 @@ if pagina == "Planejar o Dia":
         st.markdown(
             f"<div style='margin-top:20px'><span style='font-weight:bold; background-color:{cor}; padding:5px 15px; border-radius:10px; color:black'>{categoria}</span></div>",
             unsafe_allow_html=True
-        )
+        )a
 
         # 🔹 Filtra só as tarefas dessa categoria
         tarefas_da_categoria = tarefas[tarefas["Categoria"] == categoria]["Tarefa"].tolist()
@@ -85,6 +85,28 @@ elif pagina == "Dia Atual":
 
     # Filtra só as tarefas que a pessoa planejou
     tarefas = tarefas[tarefas["Tarefa"].isin(st.session_state.tarefas_do_dia)]
+    # Filtra só as tarefas que a pessoa planejou
+    tarefas = tarefas[tarefas["Tarefa"].isin(st.session_state.tarefas_do_dia)]
+
+    # 🌈 Mostra cada tarefa com tag colorida da categoria
+    st.subheader("Tarefas para hoje:")
+
+    for _, linha in tarefas.iterrows():
+    tarefa = linha["Tarefa"]
+    categoria = linha["Categoria"]
+    cor = cores_categorias.get(categoria, "#EEE")
+
+    st.markdown(
+        f"""
+        <div style='padding:8px 12px; border-radius:10px; background-color:#f9f9f9; margin-bottom:10px; font-size:16px'>
+            ✅ {tarefa}
+            <span style='background-color:{cor}; color:black; padding:3px 10px; border-radius:8px; margin-left:10px; font-size:0.85em'>
+                {categoria}
+            </span>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     # Mostra painel de tarefas e retorna pontos do dia
     pontos = mostrar_painel_tarefas(tarefas)
