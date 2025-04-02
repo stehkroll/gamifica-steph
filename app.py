@@ -28,18 +28,48 @@ if "pontos_totais" not in st.session_state:
 
 # Página de planejamento
 if pagina == "Planejar o Dia":
+   if pagina == "Planejar o Dia":
     st.title("📋 Planejar o Dia")
 
-    # Carrega todas as tarefas disponíveis
+    # Carrega o CSV com todas as tarefas
     tarefas = pd.read_csv("data/tarefas.csv")
-    opcoes = tarefas["Tarefa"].tolist()
 
-    # Caixas para escolher as tarefas que vão aparecer no dia seguinte
-    selecionadas = st.multiselect("Quais tarefas você quer fazer hoje?", opcoes)
+    # Lista onde vamos guardar tudo que foi selecionado
+    tarefas_selecionadas = []
 
+    # Agora vamos mostrar as tarefas separadas por categoria!
+    for categoria, cor in cores_categorias.items():
+        # 🔹 Título da categoria com fundinho colorido
+        st.markdown(
+            f"<div style='margin-top:20px'><span style='font-weight:bold; background-color:{cor}; padding:5px 15px; border-radius:10px; color:black'>{categoria}</span></div>",
+            unsafe_allow_html=True
+        )
+
+        # 🔹 Filtra só as tarefas dessa categoria
+        tarefas_da_categoria = tarefas[tarefas["Categoria"] == categoria]["Tarefa"].tolist()
+
+        # 🔹 Caixinha de seleção (multiselect) pra essa categoria
+        selecionadas = st.multiselect(
+            f"Escolha as tarefas de {categoria}",
+            tarefas_da_categoria,
+            key=categoria  # importante pra manter separado
+        )
+
+        # 🔹 Mostrar as tarefas selecionadas com fundinho colorido (tipo TAG)
+        for tarefa in selecionadas:
+            st.markdown(
+                f"<div style='display:inline-block; background-color:{cor}; color:black; padding:5px 10px; border-radius:10px; margin:5px 5px 10px 0;'>{tarefa}</div>",
+                unsafe_allow_html=True
+            )
+
+        # 🔹 Adiciona as tarefas dessa categoria na lista geral
+        tarefas_selecionadas.extend(selecionadas)
+
+    # 🔹 Botão para salvar a programação do dia
     if st.button("✨ Programar Tarefas ✨"):
-        st.session_state.tarefas_do_dia = selecionadas
-        st.success("Tarefas programadas com sucesso! Agora vá para a página 'Dia Atual' 👇")
+        st.session_state.tarefas_do_dia = tarefas_selecionadas
+        st.success("Tarefas programadas com sucesso! Vá para a página 'Dia Atual'")
+
 
 # Página principal: Dia Atual
 elif pagina == "Dia Atual":
