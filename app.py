@@ -51,11 +51,11 @@ def planejar_o_dia():
     st.markdown("### Planejando o Dia")
 
     for i, tarefa in tarefas_filtradas.iterrows():
-        tarefa_escolhida = st.checkbox(tarefa['Nome'], key=f"tarefa_{i}")
-        prioridade = st.slider(f"Prioridade de {tarefa['Nome']} (Deixe em branco se não escolher)", 0, 3, 0, key=f"prioridade_{i}")
+        tarefa_escolhida = st.checkbox(tarefa['Tarefa'], key=f"tarefa_{i}")
+        prioridade = st.slider(f"Prioridade de {tarefa['Tarefa']} (Deixe em branco se não escolher)", 0, 3, 0, key=f"prioridade_{i}")
         
         if tarefa_escolhida:
-            tarefas_selecionadas.append((tarefa['Nome'], prioridade, tarefa['Pontos']))
+            tarefas_selecionadas.append((tarefa['Tarefa'], prioridade, tarefa['Pontos']))
 
     # Mostrar tarefas selecionadas
     st.markdown("### Tarefas Selecionadas para o Dia")
