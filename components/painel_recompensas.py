@@ -21,7 +21,7 @@ def mostrar_painel_recompensas(pontos_disponiveis):
             st.markdown(f"### {row['Nome']} {row['Emoji']}")  # Nome + Emoji
         with col2:
             # Exibir pontos e a opção de resgatar
-            st.markdown(f"🪙 **{row['Pontos']} pontos**")
+       
             if pontos_disponiveis >= row["Pontos"]:
                 if st.button(f"✨ Resgatar", key=f"resgatar_{i}"):
                     st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
