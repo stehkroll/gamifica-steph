@@ -138,6 +138,16 @@ elif pagina == "Dia Atual":
 
     st.session_state.pontos_totais += pontos
 
+    # Exibe total acumulado de pontos
+    st.markdown(
+        f"""
+        <div style='border: 2px solid #ccc; padding: 15px; border-radius: 12px; background-color: #f2f2f2; text-align: center; font-size: 20px; margin-top: 20px;'>
+            💰 <b>Pontos:</b> {st.session_state.pontos_totais}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
     st.markdown("---")
     if st.button("🔄 Resetar Dia"):
         st.session_state.tarefas_do_dia = []
