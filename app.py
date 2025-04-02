@@ -135,23 +135,6 @@ elif pagina == "Dia Atual":
             "Data": hoje
         })
 
-        f"{tarefa}",
-        key=f"checkbox_{tarefa}_{_}"
-
-
-        st.markdown(
-            f"""
-            <div style='margin-top:-10px; margin-bottom:10px;'>
-                <span style='background-color:{cor}; color:black; padding:3px 10px; border-radius:8px; font-size:0.85em'>
-                    {categoria}
-                </span>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        if feita_nova:
-            pontos += pontos_tarefa
 
     st.session_state.pontos_totais += pontos
 
