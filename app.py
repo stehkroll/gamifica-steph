@@ -106,7 +106,7 @@ elif pagina == "Dia Atual":
         )
 
     # Mostra painel de tarefas e retorna pontos do dia
-    pontos = mostrar_painel_tarefas(tarefas)
+       pontos = tarefas["Pontos"].sum()
 
     # Soma os pontos do dia no total
     st.session_state.pontos_totais += pontos
