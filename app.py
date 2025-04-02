@@ -50,7 +50,6 @@ if pagina == "Planejar o Dia":
 
         # 🔹 Caixinha de seleção (multiselect) pra essa categoria
         selecionadas = st.multiselect(
-            f"Escolha as tarefas de {categoria}",
             tarefas_da_categoria,
             key=categoria  # importante pra manter separado
         )
