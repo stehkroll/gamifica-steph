@@ -1,9 +1,10 @@
 import streamlit as st
 import pandas as pd
+import math
+from datetime import datetime
 from components.painel_tarefas import mostrar_painel_tarefas
 from components.painel_recompensas import mostrar_painel_recompensas
 from logic.niveis import calcular_nivel
-from datetime import datetime
 from components.personagem import montar_personagem
 
 # Configuração da página
@@ -16,13 +17,65 @@ hoje = datetime.today().strftime('%Y-%m-%d')
 # Carrega tarefas do CSV
 tarefas = pd.read_csv("data/tarefas.csv")
 
-# Mostra painel de tarefas e retorna pontos do dia
-pontos = mostrar_painel_tarefas(tarefas)
+# Função para calcular pontos perdidos e ganhos
+def calcular_pontos(tarefas_selecionadas):
+    pontos_totais = 0
+    for tarefa, prioridade, pontos in tarefas_selecionadas:
+        # 50% dos pontos da tarefa
+        pontos_perdidos = math.ceil(pontos * 0.5)
 
-# Calcula nível, progresso e XP para o próximo nível
-nivel, xp_atual, xp_proximo_nivel, progresso = calcular_nivel(pontos)
+        # Bonificação/penalização baseada na prioridade (como porcentagem)
+        if prioridade == 3:
+            pontos_perdidos += math.ceil(pontos * 0.10)  # +10% dos pontos da tarefa
+        elif prioridade == 2:
+            pontos_perdidos += math.ceil(pontos * 0.06)  # +6% dos pontos da tarefa
+        elif prioridade == 1:
+            pontos_perdidos += math.ceil(pontos * 0.03)  # +3% dos pontos da tarefa
+
+        # Adiciona a penalização ao total de pontos
+        pontos_totais += pontos_perdidos
+    
+    return pontos_totais
+
+# Função para o planejamento do dia
+def planejar_o_dia():
+    # Filtragem por categoria
+    categorias = tarefas['Categoria'].unique()
+    categoria_selecionada = st.selectbox("Escolha a categoria", categorias)
+
+    # Exibir tarefas da categoria selecionada
+    tarefas_filtradas = tarefas[tarefas['Categoria'] == categoria_selecionada]
+    tarefas_selecionadas = []
+
+    # Interface para escolher tarefas e definir prioridade
+    st.markdown("### Planejando o Dia")
+
+    for i, tarefa in tarefas_filtradas.iterrows():
+        tarefa_escolhida = st.checkbox(tarefa['Nome'], key=f"tarefa_{i}")
+        prioridade = st.slider(f"Prioridade de {tarefa['Nome']} (Deixe em branco se não escolher)", 0, 3, 0, key=f"prioridade_{i}")
+        
+        if tarefa_escolhida:
+            tarefas_selecionadas.append((tarefa['Nome'], prioridade, tarefa['Pontos']))
+
+    # Mostrar tarefas selecionadas
+    st.markdown("### Tarefas Selecionadas para o Dia")
+    for tarefa, prioridade, pontos in tarefas_selecionadas:
+        prioridade_texto = "Sem Prioridade" if prioridade == 0 else f"Prioridade: {prioridade} estrela(s)"
+        st.markdown(f"- {tarefa} ({prioridade_texto})")
+
+    return tarefas_selecionadas
+
+# Planejamento do dia
+tarefas_selecionadas = planejar_o_dia()
+
+# Botão para resetar tarefas e perder pontos
+if st.button("Resetar Tarefas"):
+    pontos_perdidos = calcular_pontos(tarefas_selecionadas)
+    st.warning(f"Você perdeu {pontos_perdidos} pontos pelas tarefas não feitas!")
 
 # Exibe informações de nível e progresso
+pontos = mostrar_painel_tarefas(tarefas)
+nivel, xp_atual, xp_proximo_nivel, progresso = calcular_nivel(pontos)
 st.markdown("---")
 st.subheader(f"📊 Nível {nivel}")
 st.progress(progresso)
@@ -61,10 +114,4 @@ progresso_df.to_csv("data/progresso.csv", index=False)
 
 # Mostra painel de recompensas
 st.markdown("---")
-
-# Aqui chamamos o painel de recompensas
 mostrar_painel_recompensas(pontos)
-
-# Para verificar o que está acontecendo com o CSV
-recompensas = pd.read_csv("data/recompensas.csv")
-st.write("Colunas carregadas no CSV:", recompensas.columns.tolist())  # Exibe as colunas carregadas
