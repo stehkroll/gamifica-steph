@@ -84,8 +84,6 @@ elif pagina == "Dia Atual":
 
     # Filtra só as tarefas que a pessoa planejou
     tarefas = tarefas[tarefas["Tarefa"].isin(st.session_state.tarefas_do_dia)]
-    # Filtra só as tarefas que a pessoa planejou
-    tarefas = tarefas[tarefas["Tarefa"].isin(st.session_state.tarefas_do_dia)]
 
     # 🌈 Mostra cada tarefa com tag colorida da categoria
     st.subheader("Tarefas para hoje:")
