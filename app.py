@@ -134,7 +134,7 @@ elif pagina == "Dia Atual":
 
         f"{tarefa}",
         key=f"checkbox_{tarefa}"
-        )
+
 
         st.markdown(
             f"""
