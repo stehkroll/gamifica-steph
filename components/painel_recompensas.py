@@ -10,7 +10,6 @@ def mostrar_painel_recompensas(pontos_disponiveis):
     # Garantir que não existam espaços extras nas colunas
     recompensas.columns = recompensas.columns.str.strip()
 
-    # Exibir as colunas para depuração
 
     # Loop através das recompensas
     for i, row in recompensas.iterrows():

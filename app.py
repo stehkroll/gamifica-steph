@@ -30,7 +30,11 @@ if "tarefas_do_dia" not in st.session_state:
     st.session_state.tarefas_do_dia = tarefas_salvas
 
 if "pontos_totais" not in st.session_state:
-    st.session_state.pontos_totais = 0
+    try:
+        pontos_df = pd.read_csv("data/pontos_totais.csv")
+        st.session_state.pontos_totais = int(pontos_df["Pontos"].iloc[0])
+    except:
+        st.session_state.pontos_totais = 0
 
 # 📅 Planejamento
 if pagina == "Planejar o Dia":
@@ -188,3 +192,9 @@ elif pagina == "Dia Atual":
 
     st.markdown("---")
     mostrar_painel_recompensas(pontos)
+
+
+    def salvar_pontos():
+        df_pontos = pd.DataFrame([{"Pontos": st.session_state.pontos_totais}])
+        df_pontos.to_csv("data/pontos_totais.csv", index=False)
+
