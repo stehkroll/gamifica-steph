@@ -8,6 +8,14 @@ from components.personagem import montar_personagem
 
 st.set_page_config(page_title="Gamificação da Rotina", layout="centered")
 
+cores_categorias = {
+    "Casa": "#E1B12C",
+    "Estudos": "#7FDBD4",
+    "Autocuidado": "#A2CFFF",
+    "Trabalho": "#5BA67C",
+    "Projetos": "#C89BE0",
+}
+
 # Sidebar para mudar de página
 pagina = st.sidebar.selectbox("Escolha uma página", ["Planejar o Dia", "Dia Atual"])
 
