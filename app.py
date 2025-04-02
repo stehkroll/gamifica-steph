@@ -5,6 +5,8 @@ from components.painel_recompensas import mostrar_painel_recompensas
 from logic.niveis import calcular_nivel
 from datetime import datetime
 from components.personagem import montar_personagem
+from utils.salvar import salvar_pontos
+
 
 st.set_page_config(page_title="Gamificação da Rotina", layout="centered")
 
@@ -35,9 +37,6 @@ if "pontos_totais" not in st.session_state:
         st.session_state.pontos_totais = int(pontos_df["Pontos"].iloc[0])
     except:
         st.session_state.pontos_totais = 0
-def salvar_pontos():
-    df_pontos = pd.DataFrame([{"Pontos": st.session_state.pontos_totais}])
-    df_pontos.to_csv("data/pontos_totais.csv", index=False)
 
 # 📅 Planejamento
 if pagina == "Planejar o Dia":
