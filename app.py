@@ -141,7 +141,7 @@ elif pagina == "Dia Atual":
     # Exibe total acumulado de pontos
     st.markdown(
         f"""
-        <div style='border: 2px solid #000000; padding: 15px; border-radius: 12px; background-color: #f2f2f2; text-align: center; font-size: 20px; margin-top: 20px;'>
+        <div style='border: 2px solid #c89be0; padding: 15px; border-radius: 12px; background-color: #f2f2f2; text-align: center; font-size: 20px; margin-top: 20px; color: #000000'>
             💰 <b>Pontos:</b> {st.session_state.pontos_totais}
         </div>
         """,
