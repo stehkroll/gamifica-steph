@@ -6,6 +6,8 @@ from logic.niveis import calcular_nivel
 from datetime import datetime
 from components.personagem import montar_personagem
 
+st.set_page_config(page_title="Gamificação da Rotina", layout="centered")
+
 # Sidebar para mudar de página
 pagina = st.sidebar.selectbox("Escolha uma página", ["Planejar o Dia", "Dia Atual"])
 
@@ -34,7 +36,6 @@ if pagina == "Planejar o Dia":
 # Página principal: Dia Atual
 elif pagina == "Dia Atual":
     # Configuração da página
-    st.set_page_config(page_title="Gamificação da Rotina", layout="centered")
     st.title("🌟 Gamificação da Rotina")
 
     # Data de hoje
