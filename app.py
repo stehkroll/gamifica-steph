@@ -132,8 +132,8 @@ elif pagina == "Dia Atual":
             "Data": hoje
         })
 
-            f"{tarefa}",
-            key=f"checkbox_{tarefa}"
+        f"{tarefa}",
+        key=f"checkbox_{tarefa}"
         )
 
         st.markdown(
