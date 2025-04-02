@@ -89,12 +89,12 @@ elif pagina == "Dia Atual":
 
     # Carrega tarefas do CSV
     tarefas = pd.read_csv("data/tarefas.csv")
-        # Tenta carregar tarefas do dia salvas
-        try:
-        tarefas_do_dia_df = pd.read_csv("data/tarefas_do_dia.csv")
-        tarefas_do_dia = tarefas_do_dia_df["Tarefa"].tolist()
-        except FileNotFoundError:
-        tarefas_do_dia = []
+    # Tenta carregar tarefas do dia salvas
+    try:
+    tarefas_do_dia_df = pd.read_csv("data/tarefas_do_dia.csv")
+    tarefas_do_dia = tarefas_do_dia_df["Tarefa"].tolist()
+    except FileNotFoundError:
+    tarefas_do_dia = []
 
 # Filtra o CSV original
 tarefas = tarefas[tarefas["Tarefa"].isin(tarefas_do_dia)]
