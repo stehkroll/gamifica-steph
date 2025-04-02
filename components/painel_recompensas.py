@@ -11,7 +11,6 @@ def mostrar_painel_recompensas(pontos_disponiveis):
     recompensas.columns = recompensas.columns.str.strip()
 
     # Exibir as colunas para depuração
-    st.write("Colunas no CSV:", recompensas.columns.tolist())
 
     # Loop através das recompensas
     for i, row in recompensas.iterrows():
