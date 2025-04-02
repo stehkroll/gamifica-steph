@@ -94,22 +94,25 @@ elif pagina == "Dia Atual":
         pontos = 0
         novos_status = []
 
+    pontos = 0
+    novos_status = []
+
     for _, linha in tarefas.iterrows():
         tarefa = linha["Tarefa"]
         categoria = linha["Categoria"]
         pontos_tarefa = linha["Pontos"]
         cor = cores_categorias.get(categoria, "#EEE")
 
-        # Verifica se a tarefa está marcada como feita
+        # Verifica se a tarefa está marcada como feita anteriormente
         status_anterior = status_df[status_df["Tarefa"] == tarefa]
         feita = False
         if not status_anterior.empty:
             feita = bool(status_anterior["Feita"].values[0])
 
-        # Caixa para marcar como feita
+        # Checkbox para marcar como feita
         feita_nova = st.checkbox(f"{tarefa}", value=feita, key=f"checkbox_{tarefa}")
 
-        # Mostra categoria como tag colorida
+        # Exibe categoria como tag colorida
         st.markdown(
             f"""
             <div style='margin-top:-10px; margin-bottom:10px;'>
@@ -121,11 +124,11 @@ elif pagina == "Dia Atual":
             unsafe_allow_html=True
         )
 
-        # Se marcada como feita agora
+        # Soma os pontos se marcada
         if feita_nova:
             pontos += pontos_tarefa
 
-        # Salvar o status novo
+        # Atualiza lista para salvar
         novos_status.append({
             "Tarefa": tarefa,
             "Feita": feita_nova,
