@@ -35,6 +35,9 @@ if "pontos_totais" not in st.session_state:
         st.session_state.pontos_totais = int(pontos_df["Pontos"].iloc[0])
     except:
         st.session_state.pontos_totais = 0
+def salvar_pontos():
+    df_pontos = pd.DataFrame([{"Pontos": st.session_state.pontos_totais}])
+    df_pontos.to_csv("data/pontos_totais.csv", index=False)
 
 # 📅 Planejamento
 if pagina == "Planejar o Dia":
@@ -102,6 +105,7 @@ elif pagina == "Dia Atual":
     novos_status = []
 
     for _, linha in tarefas.iterrows():
+
         tarefa = linha["Tarefa"]
         categoria = linha["Categoria"]
         pontos_tarefa = linha["Pontos"]
@@ -139,8 +143,12 @@ elif pagina == "Dia Atual":
             "Data": hoje
         })
 
+    # Salva o status atualizado das tarefas
+    status_df_atualizado = pd.DataFrame(novos_status)
+    status_df_atualizado.to_csv("data/status_tarefas.csv", index=False)
 
     st.session_state.pontos_totais += pontos
+    salvar_pontos()
 
     # Exibe total acumulado de pontos
     st.markdown(
@@ -194,7 +202,4 @@ elif pagina == "Dia Atual":
     mostrar_painel_recompensas(pontos)
 
 
-    def salvar_pontos():
-        df_pontos = pd.DataFrame([{"Pontos": st.session_state.pontos_totais}])
-        df_pontos.to_csv("data/pontos_totais.csv", index=False)
 
