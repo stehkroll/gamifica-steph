@@ -65,53 +65,58 @@ def planejar_o_dia():
 
     return tarefas_selecionadas
 
-# Planejamento do dia
-tarefas_selecionadas = planejar_o_dia()
+# Verifica se o usuário já configurou o personagem
+if 'configurou_personagem' not in st.session_state:
+    # Primeiro acesso, pergunta para configurar o personagem
+    st.session_state.configurou_personagem = False
+    st.subheader("🧍 Configuração do Personagem")
+    olho_escolhido = st.selectbox("Escolha a cor dos olhos:", [
+        "castanho", "azul", "verde", "roxo", "vermelho", "rosa"
+    ])
 
-# Botão para resetar tarefas e perder pontos
-if st.button("Resetar Tarefas"):
-    pontos_perdidos = calcular_pontos(tarefas_selecionadas)
-    st.warning(f"Você perdeu {pontos_perdidos} pontos pelas tarefas não feitas!")
+    estilo_cabelo = st.selectbox("Escolha o estilo de cabelo:", [
+        "sem_cabelo",
+        "curto1", "curto2",
+        "medio_liso", "medio_cacheado",
+        "longo_liso", "longo_cacheado"
+    ])
 
-# Exibe informações de nível e progresso
-pontos = mostrar_painel_tarefas(tarefas)
-nivel, xp_atual, xp_proximo_nivel, progresso = calcular_nivel(pontos)
-st.markdown("---")
-st.subheader(f"📊 Nível {nivel}")
-st.progress(progresso)
-st.caption(f"Você está a {xp_proximo_nivel - xp_atual} XP de alcançar o nível {nivel + 1}!")
+    cor_cabelo = st.selectbox("Escolha a cor do cabelo:", [
+        "preto", "castanho", "vermelho", "rosa", "roxo",
+        "azul", "verde", "loiro", "branco"
+    ])
 
-# Personagem
-st.markdown("---")
-st.subheader("🧍 Personalização do Personagem")
+    # Combina estilo com cor
+    cabelo_escolhido = f"{estilo_cabelo}_{cor_cabelo}"
 
-# Escolhas do usuário
-olho_escolhido = st.selectbox("Escolha a cor dos olhos:", [
-    "castanho", "azul", "verde", "roxo", "vermelho", "rosa"
-])
+    # Mostra personagem com as escolhas feitas
+    montar_personagem(olho=olho_escolhido, cabelo=cabelo_escolhido)
 
-estilo_cabelo = st.selectbox("Escolha o estilo de cabelo:", [
-    "sem_cabelo",
-    "curto1", "curto2",
-    "medio_liso", "medio_cacheado",
-    "longo_liso", "longo_cacheado"
-])
+    # Salva progresso da configuração
+    if st.button("Salvar Personagem"):
+        st.session_state.configurou_personagem = True  # Marca como configurado
+        st.success("Personagem configurado com sucesso!")
 
-cor_cabelo = st.selectbox("Escolha a cor do cabelo:", [
-    "preto", "castanho", "vermelho", "rosa", "roxo",
-    "azul", "verde", "loiro", "branco"
-])
+else:
+    # Se o personagem já foi configurado, passa para o planejamento do dia
+    st.markdown("---")
+    st.subheader("🗓️ Planejando o Dia")
 
-# Combina estilo com cor
-cabelo_escolhido = f"{estilo_cabelo}_{cor_cabelo}"
+    tarefas_selecionadas = planejar_o_dia()
 
-# Mostra personagem com as escolhas feitas
-montar_personagem(olho=olho_escolhido, cabelo=cabelo_escolhido)
+    # Botão para resetar tarefas e perder pontos
+    if st.button("Resetar Tarefas ⟳"):
+        pontos_perdidos = calcular_pontos(tarefas_selecionadas)
+        st.warning(f"Você perdeu {pontos_perdidos} pontos pelas tarefas não feitas!")
 
-# Salva progresso diário
-progresso_df = pd.DataFrame([[hoje, pontos, nivel]], columns=["Data", "Pontos", "Nivel"])
-progresso_df.to_csv("data/progresso.csv", index=False)
+    # Exibe informações de nível e progresso
+    pontos = mostrar_painel_tarefas(tarefas)
+    nivel, xp_atual, xp_proximo_nivel, progresso = calcular_nivel(pontos)
+    st.markdown("---")
+    st.subheader(f"📊 Nível {nivel}")
+    st.progress(progresso)
+    st.caption(f"Você está a {xp_proximo_nivel - xp_atual} XP de alcançar o nível {nivel + 1}!")
 
-# Mostra painel de recompensas
-st.markdown("---")
-mostrar_painel_recompensas(pontos)
+    # Mostra painel de recompensas
+    st.markdown("---")
+    mostrar_painel_recompensas(pontos)
