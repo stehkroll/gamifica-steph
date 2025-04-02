@@ -118,7 +118,7 @@ elif pagina == "Dia Atual":
 
         # Checkbox para marcar como feita
         feita_nova = st.checkbox(f"{tarefa}", value=feita, key=f"checkbox_{tarefa}")
-
+        feita_antes = feita
         # Exibe categoria como tag colorida
         st.markdown(
             f"""
@@ -131,9 +131,10 @@ elif pagina == "Dia Atual":
             unsafe_allow_html=True
         )
 
-        # Soma os pontos se marcada
-        if feita_nova:
-            pontos += pontos_tarefa
+        ## Soma os pontos se marcada
+        if feita_nova and not feita_antes:
+            st.session_state.pontos_totais += pontos_tarefa
+
 
         # Atualiza lista para salvar
         novos_status.append({
@@ -141,13 +142,13 @@ elif pagina == "Dia Atual":
             "Feita": feita_nova,
             "Data": hoje
         })
+    salvar_pontos()
 
     # Salva o status atualizado das tarefas
     status_df_atualizado = pd.DataFrame(novos_status)
     status_df_atualizado.to_csv("data/status_tarefas.csv", index=False)
 
-    st.session_state.pontos_totais += pontos
-    salvar_pontos()
+
 
     # Exibe total acumulado de pontos
     st.markdown(
