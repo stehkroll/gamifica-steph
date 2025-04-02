@@ -93,15 +93,11 @@ elif pagina == "Dia Atual":
     try:
         tarefas_do_dia_df = pd.read_csv("data/tarefas_do_dia.csv")
         tarefas_do_dia = tarefas_do_dia_df["Tarefa"].tolist()
-        except FileNotFoundError:
+    except FileNotFoundError:
         tarefas_do_dia = []
 
 # Filtra o CSV original
 tarefas = tarefas[tarefas["Tarefa"].isin(tarefas_do_dia)]
-
-
-    # Filtra só as tarefas que a pessoa planejou
-    tarefas = tarefas[tarefas["Tarefa"].isin(st.session_state.tarefas_do_dia)]
 
     # 🌈 Mostra cada tarefa com tag colorida da categoria
     st.subheader("Tarefas para hoje:")
