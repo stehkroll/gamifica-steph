@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 def mostrar_painel_recompensas(pontos_disponiveis):
-    st.subheader("🎁 Suas Recompensas")
+    st.subheader("🎁 Recompensas")
 
     # Carregar recompensas do CSV
     recompensas = pd.read_csv("data/recompensas.csv")
