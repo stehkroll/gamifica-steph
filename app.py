@@ -88,11 +88,11 @@ elif pagina == "Dia Atual":
     except FileNotFoundError:
         status_df = pd.DataFrame(columns=["Tarefa", "Feita", "Data"])
     
-    st.subheader("Tarefas para hoje:")
+        st.subheader("Tarefas para hoje:")
 
-    pontos = 0
-   pontos = 0
-novos_status = []
+        pontos = 0
+        pontos = 0
+        novos_status = []
 
     for _, linha in tarefas.iterrows():
         tarefa = linha["Tarefa"]
