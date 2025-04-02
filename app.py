@@ -79,17 +79,59 @@ elif pagina == "Dia Atual":
         tarefas_do_dia = []
 
     tarefas = tarefas[tarefas["Tarefa"].isin(tarefas_do_dia)]
+    # Caminho para salvar o status das tarefas
+    caminho_status = "data/status_tarefas.csv"
 
+# Tenta carregar o status anterior
+    try:
+        status_df = pd.read_csv(caminho_status)
+    except FileNotFoundError:
+        status_df = pd.DataFrame(columns=["Tarefa", "Feita", "Data"])
+    
     st.subheader("Tarefas para hoje:")
 
     pontos = 0
+   pontos = 0
+novos_status = []
+
     for _, linha in tarefas.iterrows():
         tarefa = linha["Tarefa"]
         categoria = linha["Categoria"]
         pontos_tarefa = linha["Pontos"]
         cor = cores_categorias.get(categoria, "#EEE")
 
-        concluida = st.checkbox(
+        # Verifica se a tarefa está marcada como feita
+        status_anterior = status_df[status_df["Tarefa"] == tarefa]
+        feita = False
+        if not status_anterior.empty:
+            feita = bool(status_anterior["Feita"].values[0])
+
+        # Caixa para marcar como feita
+        feita_nova = st.checkbox(f"{tarefa}", value=feita, key=f"checkbox_{tarefa}")
+
+        # Mostra categoria como tag colorida
+        st.markdown(
+            f"""
+            <div style='margin-top:-10px; margin-bottom:10px;'>
+                <span style='background-color:{cor}; color:black; padding:3px 10px; border-radius:8px; font-size:0.85em'>
+                    {categoria}
+                </span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # Se marcada como feita agora
+        if feita_nova:
+            pontos += pontos_tarefa
+
+        # Salvar o status novo
+        novos_status.append({
+            "Tarefa": tarefa,
+            "Feita": feita_nova,
+            "Data": hoje
+        })
+
             f"{tarefa}",
             key=f"checkbox_{tarefa}"
         )
