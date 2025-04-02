@@ -147,7 +147,7 @@ elif pagina == "Dia Atual":
             unsafe_allow_html=True
         )
 
-        if concluida:
+        if feita_nova:
             pontos += pontos_tarefa
 
     st.session_state.pontos_totais += pontos
