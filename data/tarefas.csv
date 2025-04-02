@@ -1,59 +1,59 @@
-Tarefa,Categoria,Complexidade,Pontos,Feita,Data
-Arrumar cama,Casa,Baixa,5,False,2025-04-01
-Lavar louça,Casa,Média,10,False,2025-04-01
-Organizar armário,Casa,Alta,20,False,2025-04-01
-Lavar roupa,Casa,Alta,20,False,2025-04-01
-Limpeza diária,Casa,Média,10,False,2025-04-01
-Limpeza pesada,Casa,Alta,20,False,2025-04-01
-Tirar o lixo,Casa,Baixa,5,False,2025-04-01
-Guardar louça,Casa,Baixa,5,False,2025-04-01
-Trocar lençol,Casa,Média,10,False,2025-04-01
-Limpar geladeira,Casa,Alta,20,False,2025-04-01
-Passar pano na casa,Casa,Média,10,False,2025-04-01
-Passar roupa,Casa,Alta,20,False,2025-04-01
-Estudar Python 30 min,Estudos,Média,10,False,2025-04-01
-Fazer exercício prático,Estudos,Média,10,False,2025-04-01
-Avançar num curso,Estudos,Média,10,False,2025-04-01
-Ler artigo científico,Estudos,Alta,20,False,2025-04-01
-Fazer resumo ou mapa mental,Estudos,Média,10,False,2025-04-01
-Estudar 1h+,Estudos,Alta,20,False,2025-04-01
-Escrever parte de artigo,Estudos,Alta,20,False,2025-04-01
-Resolver lista grande,Estudos,Alta,20,False,2025-04-01
-Gravar vídeo explicando conteúdo,Estudos,Alta,20,False,2025-04-01
-Rever anotações,Estudos,Baixa,5,False,2025-04-01
-Ver vídeo curto,Estudos,Baixa,5,False,2025-04-01
-Planejar o que estudar,Estudos,Baixa,5,False,2025-04-01
-Skincare noturna,Autocuidado,Baixa,5,False,2025-04-01
-Skincare completa,Autocuidado,Média,10,False,2025-04-01
-Passar protetor solar,Autocuidado,Baixa,5,False,2025-04-01
-Tomar banho,Autocuidado,Baixa,5,False,2025-04-01
-Cuidar das unhas,Autocuidado,Baixa,5,False,2025-04-01
-Dormir na hora certa,Autocuidado,Baixa,5,False,2025-04-01
-Tomar sol / sair de casa,Autocuidado,Média,10,False,2025-04-01
-Caminhada leve,Autocuidado,Média,10,False,2025-04-01
-Meditar ou respirar 5–10 min,Autocuidado,Média,10,False,2025-04-01
-Meditar 30+ min,Autocuidado,Alta,20,False,2025-04-01
-Ir à terapia,Autocuidado,Alta,20,False,2025-04-01
-Fazer exercício físico intenso,Autocuidado,Alta,20,False,2025-04-01
-Desconectar por 1h,Autocuidado,Alta,20,False,2025-04-01
-Planejar o dia,Trabalho,Baixa,5,False,2025-04-01
-Organizar o ambiente,Trabalho,Baixa,5,False,2025-04-01
-Anotar tarefas no papel,Trabalho,Baixa,5,False,2025-04-01
-Iniciar tarefa difícil,Trabalho,Baixa,5,False,2025-04-01
-Fazer Pomodoro,Trabalho,Média,10,False,2025-04-01
-Revisar lista de tarefas,Trabalho,Média,10,False,2025-04-01
-Criar lista por prioridade,Trabalho,Média,10,False,2025-04-01
-Focar por 1h+,Trabalho,Alta,20,False,2025-04-01
-Realizar tarefa evitada,Trabalho,Alta,20,False,2025-04-01
-Cumprir todas do dia,Trabalho,Alta,20,False,2025-04-01
-Brainstorm de ideias,Projetos,Baixa,5,False,2025-04-01
-Organizar pastas do projeto,Projetos,Baixa,5,False,2025-04-01
-Trabalhar 30min em projeto,Projetos,Média,10,False,2025-04-01
-Fazer curso/aula para projeto,Projetos,Média,10,False,2025-04-01
-Atualizar LinkedIn/currículo,Projetos,Média,10,False,2025-04-01
-Melhorar algo já feito,Projetos,Média,10,False,2025-04-01
-Finalizar etapa do projeto,Projetos,Alta,20,False,2025-04-01
-Publicar conteúdo,Projetos,Alta,20,False,2025-04-01
-Iniciar projeto novo,Projetos,Alta,20,False,2025-04-01
-Submeter proposta/portfólio,Projetos,Alta,20,False,2025-04-01
-Trabalhar 1h+ no projeto,Projetos,Alta,20,False,2025-04-01
+Tarefa,Categoria,Complexidade,Pontos,Feita,Data,Prioridade
+Arrumar cama,Casa,Baixa,5,False,2025-04-01,0
+Lavar louça,Casa,Média,10,False,2025-04-01,0
+Organizar armário,Casa,Alta,20,False,2025-04-01,0
+Lavar roupa,Casa,Alta,20,False,2025-04-01,0
+Limpeza diária,Casa,Média,10,False,2025-04-01,0
+Limpeza pesada,Casa,Alta,20,False,2025-04-01,0
+Tirar o lixo,Casa,Baixa,5,False,2025-04-01,0
+Guardar louça,Casa,Baixa,5,False,2025-04-01,0
+Trocar lençol,Casa,Média,10,False,2025-04-01,0
+Limpar geladeira,Casa,Alta,20,False,2025-04-01,0
+Passar pano na casa,Casa,Média,10,False,2025-04-01,0
+Passar roupa,Casa,Alta,20,False,2025-04-01,0
+Estudar Python 30 min,Estudos,Média,10,False,2025-04-01,0
+Fazer exercício prático,Estudos,Média,10,False,2025-04-01,0
+Avançar num curso,Estudos,Média,10,False,2025-04-01,0
+Ler artigo científico,Estudos,Alta,20,False,2025-04-01,0
+Fazer resumo ou mapa mental,Estudos,Média,10,False,2025-04-01,0
+Estudar 1h+,Estudos,Alta,20,False,2025-04-01,0
+Escrever parte de artigo,Estudos,Alta,20,False,2025-04-01,0
+Resolver lista grande,Estudos,Alta,20,False,2025-04-01,0
+Gravar vídeo explicando conteúdo,Estudos,Alta,20,False,2025-04-01,0
+Rever anotações,Estudos,Baixa,5,False,2025-04-01,0
+Ver vídeo curto,Estudos,Baixa,5,False,2025-04-01,0
+Planejar o que estudar,Estudos,Baixa,5,False,2025-04-01,0
+Skincare noturna,Autocuidado,Baixa,5,False,2025-04-01,0
+Skincare completa,Autocuidado,Média,10,False,2025-04-01,0
+Passar protetor solar,Autocuidado,Baixa,5,False,2025-04-01,0
+Tomar banho,Autocuidado,Baixa,5,False,2025-04-01,0
+Cuidar das unhas,Autocuidado,Baixa,5,False,2025-04-01,0
+Dormir na hora certa,Autocuidado,Baixa,5,False,2025-04-01,0
+Tomar sol / sair de casa,Autocuidado,Média,10,False,2025-04-01,0
+Caminhada leve,Autocuidado,Média,10,False,2025-04-01,0
+Meditar ou respirar 5–10 min,Autocuidado,Média,10,False,2025-04-01,0
+Meditar 30+ min,Autocuidado,Alta,20,False,2025-04-01,0
+Ir à terapia,Autocuidado,Alta,20,False,2025-04-01,0
+Fazer exercício físico intenso,Autocuidado,Alta,20,False,2025-04-01,0
+Desconectar por 1h,Autocuidado,Alta,20,False,2025-04-01,0
+Planejar o dia,Trabalho,Baixa,5,False,2025-04-01,0
+Organizar o ambiente,Trabalho,Baixa,5,False,2025-04-01,0
+Anotar tarefas no papel,Trabalho,Baixa,5,False,2025-04-01,0
+Iniciar tarefa difícil,Trabalho,Baixa,5,False,2025-04-01,0
+Fazer Pomodoro,Trabalho,Média,10,False,2025-04-01,0
+Revisar lista de tarefas,Trabalho,Média,10,False,2025-04-01,0
+Criar lista por prioridade,Trabalho,Média,10,False,2025-04-01,0
+Focar por 1h+,Trabalho,Alta,20,False,2025-04-01,0
+Realizar tarefa evitada,Trabalho,Alta,20,False,2025-04-01,0
+Cumprir todas do dia,Trabalho,Alta,20,False,2025-04-01,0
+Brainstorm de ideias,Projetos,Baixa,5,False,2025-04-01,0
+Organizar pastas do projeto,Projetos,Baixa,5,False,2025-04-01,0
+Trabalhar 30min em projeto,Projetos,Média,10,False,2025-04-01,0
+Fazer curso/aula para projeto,Projetos,Média,10,False,2025-04-01,0
+Atualizar LinkedIn/currículo,Projetos,Média,10,False,2025-04-01,0
+Melhorar algo já feito,Projetos,Média,10,False,2025-04-01,0
+Finalizar etapa do projeto,Projetos,Alta,20,False,2025-04-01,0
+Publicar conteúdo,Projetos,Alta,20,False,2025-04-01,0
+Iniciar projeto novo,Projetos,Alta,20,False,2025-04-01,0
+Submeter proposta/portfólio,Projetos,Alta,20,False,2025-04-01,0
+Trabalhar 1h+ no projeto,Projetos,Alta,20,False,2025-04-01,0
