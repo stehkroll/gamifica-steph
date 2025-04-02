@@ -78,7 +78,6 @@ if pagina == "Planejar o Dia":
 
         st.success("Tarefas programadas com sucesso! Vá para a página 'Dia Atual'")
 
-
 # Página principal: Dia Atual
 elif pagina == "Dia Atual":
     # Configuração da página
@@ -99,8 +98,8 @@ elif pagina == "Dia Atual":
 # Filtra o CSV original
 tarefas = tarefas[tarefas["Tarefa"].isin(tarefas_do_dia)]
 
-    # 🌈 Mostra cada tarefa com tag colorida da categoria
-    st.subheader("Tarefas para hoje:")
+# 🌈 Mostra cada tarefa com tag colorida da categoria
+st.subheader("Tarefas para hoje:")
 
     for _, linha in tarefas.iterrows():
         tarefa = linha["Tarefa"]
