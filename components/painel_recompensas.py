@@ -1,26 +1,31 @@
 import streamlit as st
 import pandas as pd
+from app import salvar_pontos  # você precisa ter essa função no app.py
 
-def mostrar_painel_recompensas(pontos_disponiveis):
+def mostrar_painel_recompensas(_):  # o _ é só um nome simbólico, já que não usamos
     st.subheader("🎁 Recompensas")
 
-    # Carregar recompensas do CSV
+    # Carrega recompensas do CSV
     recompensas = pd.read_csv("data/recompensas.csv")
-    
-    # Garantir que não existam espaços extras nas colunas
     recompensas.columns = recompensas.columns.str.strip()
 
-
-    # Loop através das recompensas
+    # Loop por recompensa
     for i, row in recompensas.iterrows():
         col1, col2 = st.columns([1, 4])
         with col1:
-            # Exibir o emoji junto ao nome da recompensa, com um tamanho de fonte menor
-            st.markdown(f"<h3 style='font-size: 18px; margin: 0;'>{row['Nome']} {row['Emoji']}</h3>", unsafe_allow_html=True)  # Nome + Emoji
+            st.markdown(f"<h3 style='font-size: 18px; margin: 0;'>{row['Nome']} {row['Emoji']}</h3>", unsafe_allow_html=True)
+
         with col2:
-            # Exibir pontos e a opção de resgatar
-            if pontos_disponiveis >= row["Pontos"]:
+            # Verifica se tem pontos suficientes
+            if st.session_state.pontos_totais >= row["Pontos"]:
                 if st.button(f"✨ Resgatar", key=f"resgatar_{i}"):
+                    # 🧮 SUBTRAI os pontos
+                    st.session_state.pontos_totais -= row["Pontos"]
+
+                    # 💾 SALVA os pontos no CSV
+                    salvar_pontos()
+
+                    # 🎉 Mostra mensagem de sucesso
                     st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
             else:
-                st.info(f"🔒 Faltam {row['Pontos'] - pontos_disponiveis} pontos para liberar")
+                st.info(f"🔒 Faltam {row['Pontos'] - st.session_state.pontos_totais} pontos para liberar")

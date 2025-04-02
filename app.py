@@ -199,7 +199,7 @@ elif pagina == "Dia Atual":
     progresso_df.to_csv("data/progresso.csv", index=False)
 
     st.markdown("---")
-    mostrar_painel_recompensas(pontos)
+    mostrar_painel_recompensas(_)
 
 
 
