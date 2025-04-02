@@ -21,7 +21,11 @@ pagina = st.sidebar.selectbox("Escolha uma página", ["Planejar o Dia", "Dia Atu
 
 # Cria a memória para tarefas do dia e pontos, se ainda não existir
 if "tarefas_do_dia" not in st.session_state:
-    st.session_state.tarefas_do_dia = []
+    try:
+        st.session_state.tarefas_do_dia = pd.read_csv("data/tarefas_do_dia.csv")["Tarefa"].tolist()
+    except:
+        st.session_state.tarefas_do_dia = []
+
 
 if "pontos_totais" not in st.session_state:
     st.session_state.pontos_totais = 0
@@ -85,6 +89,16 @@ elif pagina == "Dia Atual":
 
     # Carrega tarefas do CSV
     tarefas = pd.read_csv("data/tarefas.csv")
+        # Tenta carregar tarefas do dia salvas
+        try:
+        tarefas_do_dia_df = pd.read_csv("data/tarefas_do_dia.csv")
+        tarefas_do_dia = tarefas_do_dia_df["Tarefa"].tolist()
+        except FileNotFoundError:
+        tarefas_do_dia = []
+
+# Filtra o CSV original
+tarefas = tarefas[tarefas["Tarefa"].isin(tarefas_do_dia)]
+
 
     # Filtra só as tarefas que a pessoa planejou
     tarefas = tarefas[tarefas["Tarefa"].isin(st.session_state.tarefas_do_dia)]
@@ -119,6 +133,9 @@ elif pagina == "Dia Atual":
     st.markdown("---")
     if st.button("🔄 Resetar Dia"):
         st.session_state.tarefas_do_dia = []
+# Limpa o arquivo
+        pd.DataFrame(columns=["Tarefa"]).to_csv("data/tarefas_do_dia.csv", index=False)
+
         st.success("Tarefas resetadas! Volte à página 'Planejar o Dia' para começar de novo.")
 
     # Calcula nível, progresso e XP para o próximo nível
