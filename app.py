@@ -68,6 +68,10 @@ if pagina == "Planejar o Dia":
     # 🔹 Botão para salvar a programação do dia
     if st.button("✨ Programar Tarefas ✨"):
         st.session_state.tarefas_do_dia = tarefas_selecionadas
+        # Salvar tarefas do dia em arquivo
+        df_salvar = pd.DataFrame(tarefas_selecionadas, columns=["Tarefa"])
+        df_salvar.to_csv("data/tarefas_do_dia.csv", index=False)
+
         st.success("Tarefas programadas com sucesso! Vá para a página 'Dia Atual'")
 
 
