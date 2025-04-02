@@ -19,5 +19,7 @@ def mostrar_painel_recompensas(_):
                     st.session_state.pontos_totais -= row["Pontos"]
                     salvar_pontos()
                     st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
+                    st.experimental_rerun()
+
             else:
                 st.info(f"🔒 Faltam {row['Pontos'] - st.session_state.pontos_totais} pontos")
