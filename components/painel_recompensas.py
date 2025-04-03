@@ -19,8 +19,6 @@ def mostrar_painel_recompensas():
     recompensas = pd.read_csv("data/recompensas.csv")
     recompensas.columns = recompensas.columns.str.strip()
 
-    should_rerun = False
-
     for i, row in recompensas.iterrows():
         col1, col2 = st.columns([1, 4])
         with col1:
@@ -35,10 +33,8 @@ def mostrar_painel_recompensas():
                 unsafe_allow_html=True
             )
 
-            botao_resgatar = st.button("✨ Resgatar", key=f"resgatar_{i}")
-
-            if botao_resgatar:
-                if st.session_state.pontos_totais >= row["Pontos"]:
+            if st.session_state.pontos_totais >= row["Pontos"]:
+                if st.button("✨ Resgatar", key=f"resgatar_{i}"):
                     st.session_state.pontos_totais -= row["Pontos"]
                     salvar_pontos()
 
@@ -49,10 +45,8 @@ def mostrar_painel_recompensas():
                     }
                     resgates_df = pd.concat([resgates_df, pd.DataFrame([novo_resgate])], ignore_index=True)
                     resgates_df.to_csv(caminho_resgates, index=False)
-                    st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
-                    should_rerun = True
-                else:
-                    st.info(f"🔒 Faltam {row['Pontos'] - st.session_state.pontos_totais} pontos")
 
-    if should_rerun:
-        st.experimental_rerun()
+                    st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
+                    st.experimental_set_query_params(refresh=str(datetime.now().timestamp()))
+            else:
+                st.info(f"🔒 Faltam {row['Pontos'] - st.session_state.pontos_totais} pontos")
