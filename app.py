@@ -20,30 +20,31 @@ cores_categorias = {
     "Projetos": "#C89BE0",
 }
 
-# Garante que os arquivos existam
+# Garante que a pasta e o arquivo de pontos existam
 os.makedirs("data", exist_ok=True)
 if not os.path.exists("data/pontos_totais.csv"):
     pd.DataFrame([{"Pontos": 0}]).to_csv("data/pontos_totais.csv", index=False)
-if not os.path.exists("data/status_tarefas.csv"):
-    pd.DataFrame(columns=["Tarefa", "Feita", "Data"]).to_csv("data/status_tarefas.csv", index=False)
 
-# Carrega pontos
+# Carrega pontos totais
 if "pontos_totais" not in st.session_state:
-    pontos_df = pd.read_csv("data/pontos_totais.csv")
-    st.session_state.pontos_totais = int(pontos_df["Pontos"].iloc[0])
+    try:
+        pontos_df = pd.read_csv("data/pontos_totais.csv")
+        st.session_state.pontos_totais = int(pontos_df["Pontos"].iloc[0])
+    except Exception:
+        st.session_state.pontos_totais = 0
 
-# Carrega tarefas salvas
+# Carrega tarefas do dia
 if "tarefas_do_dia" not in st.session_state:
     try:
         tarefas_salvas = pd.read_csv("data/tarefas_do_dia.csv")["Tarefa"].tolist()
-    except FileNotFoundError:
+    except Exception:
         tarefas_salvas = []
     st.session_state.tarefas_do_dia = tarefas_salvas
 
 pagina_inicial = "Dia Atual" if st.session_state.tarefas_do_dia else "Planejar o Dia"
 pagina = st.sidebar.selectbox("Escolha uma página", ["Planejar o Dia", "Dia Atual"], index=0 if pagina_inicial == "Planejar o Dia" else 1)
 
-# Carrega tarefas
+# Carrega todas as tarefas
 tarefas_df = pd.read_csv("data/tarefas.csv")
 
 if pagina == "Planejar o Dia":
@@ -71,9 +72,9 @@ elif pagina == "Dia Atual":
     tarefas_ativas = tarefas_df[tarefas_df["Tarefa"].isin(st.session_state.tarefas_do_dia)]
 
     caminho_status = "data/status_tarefas.csv"
-    if os.path.exists(caminho_status):
+    try:
         status_df = pd.read_csv(caminho_status)
-    else:
+    except (FileNotFoundError, pd.errors.EmptyDataError):
         status_df = pd.DataFrame(columns=["Tarefa", "Feita", "Data"])
 
     st.subheader("Tarefas para hoje:")
@@ -116,7 +117,6 @@ elif pagina == "Dia Atual":
         pd.DataFrame(columns=["Tarefa", "Feita", "Data"]).to_csv("data/status_tarefas.csv", index=False)
         st.success("Tarefas resetadas! Volte à página 'Planejar o Dia'")
 
-    # XP e nível com base nos pontos totais ganhos
     nivel, xp_atual, xp_proximo, progresso = calcular_nivel(st.session_state.pontos_totais)
     st.subheader(f"📊 Nível {nivel}")
     st.progress(progresso)
