@@ -19,6 +19,8 @@ def mostrar_painel_recompensas():
     recompensas = pd.read_csv("data/recompensas.csv")
     recompensas.columns = recompensas.columns.str.strip()
 
+    should_rerun = False
+
     for i, row in recompensas.iterrows():
         col1, col2 = st.columns([1, 4])
         with col1:
@@ -48,7 +50,9 @@ def mostrar_painel_recompensas():
                     resgates_df = pd.concat([resgates_df, pd.DataFrame([novo_resgate])], ignore_index=True)
                     resgates_df.to_csv(caminho_resgates, index=False)
                     st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
-
-        st.experimental_rerun()
+                    should_rerun = True
                 else:
                     st.info(f"🔒 Faltam {row['Pontos'] - st.session_state.pontos_totais} pontos")
+
+    if should_rerun:
+        st.experimental_rerun()
