@@ -99,8 +99,16 @@ elif pagina == "Dia Atual":
 
     st.markdown("---")
     if st.button("🔄 Resetar Dia"):
+        # Limpa as tarefas planejadas (na memória)
         st.session_state.tarefas_do_dia = []
+
+        # Limpa o CSV de tarefas do dia
         pd.DataFrame(columns=["Tarefa"]).to_csv("data/tarefas_do_dia.csv", index=False)
+
+        # Limpa o CSV com status das tarefas feitas
+        pd.DataFrame(columns=["Tarefa", "Feita", "Data"]).to_csv("data/status_tarefas.csv", index=False)
+
+        # Mensagem de sucesso
         st.success("Tarefas resetadas! Volte à página 'Planejar o Dia'")
 
     nivel, xp_atual, xp_proximo_nivel, progresso = calcular_nivel(st.session_state.pontos_totais)
