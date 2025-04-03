@@ -119,12 +119,12 @@ elif pagina == "Dia Atual":
     st.progress(progresso)
     st.caption(f"Você está a {xp_proximo - xp_atual} XP de alcançar o nível {nivel + 1}!")
 
-    st.markdown("---")
-    st.subheader("👽 Personalização do Personagem")
-    olho = st.selectbox("Escolha a cor dos olhos:", ["castanho", "azul", "verde", "roxo", "vermelho", "rosa"])
-    estilo = st.selectbox("Escolha o estilo de cabelo:", ["sem_cabelo", "curto1", "curto2", "medio_liso", "medio_cacheado", "longo_liso", "longo_cacheado"])
-    cor_cabelo = st.selectbox("Escolha a cor do cabelo:", ["preto", "castanho", "vermelho", "rosa", "roxo", "azul", "verde", "loiro", "branco"])
-    montar_personagem(olho=olho, cabelo=f"{estilo}_{cor_cabelo}")
+    #st.markdown("---")
+    #st.subheader("👽 Personalização do Personagem")
+    #olho = st.selectbox("Escolha a cor dos olhos:", ["castanho", "azul", "verde", "roxo", "vermelho", "rosa"])
+    #estilo = st.selectbox("Escolha o estilo de cabelo:", ["sem_cabelo", "curto1", "curto2", "medio_liso", "medio_cacheado", "longo_liso", "longo_cacheado"])
+    #cor_cabelo = st.selectbox("Escolha a cor do cabelo:", ["preto", "castanho", "vermelho", "rosa", "roxo", "azul", "verde", "loiro", "branco"])
+    #montar_personagem(olho=olho, cabelo=f"{estilo}_{cor_cabelo}")
 
     progresso_df = pd.DataFrame([[hoje, pontos_ganhos_hoje, nivel]], columns=["Data", "Pontos", "Nivel"])
     progresso_df.to_csv("data/progresso.csv", index=False)
