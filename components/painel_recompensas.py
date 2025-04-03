@@ -4,7 +4,7 @@ from utils.salvar import salvar_pontos
 from datetime import datetime
 import os
 
-def mostrar_painel_recompensas(pontos_disponiveis):
+def mostrar_painel_recompensas():
     st.subheader("🎁 Recompensas")
 
     caminho_resgates = "data/resgates.csv"
@@ -33,7 +33,7 @@ def mostrar_painel_recompensas(pontos_disponiveis):
                 unsafe_allow_html=True
             )
 
-            botao_resgatar = st.button("✨ Resgatar", key=f"resgatar_{i}")
+            botao_resgatar = st.button("✨ Resgatar", key=f"resgatar_{i}_{datetime.now().timestamp()}")
 
             if botao_resgatar and st.session_state.pontos_totais >= row["Pontos"]:
                 st.session_state.pontos_totais -= row["Pontos"]
@@ -47,5 +47,6 @@ def mostrar_painel_recompensas(pontos_disponiveis):
                 resgates_df = pd.concat([resgates_df, pd.DataFrame([novo_resgate])], ignore_index=True)
                 resgates_df.to_csv(caminho_resgates, index=False)
                 st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
+                st.experimental_rerun()
             elif botao_resgatar:
                 st.info(f"🔒 Faltam {row['Pontos'] - st.session_state.pontos_totais} pontos")
