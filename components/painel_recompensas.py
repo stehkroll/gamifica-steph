@@ -29,7 +29,7 @@ def mostrar_painel_recompensas(pontos_disponiveis):
 
         with col2:
             if pontos_disponiveis >= row["Pontos"]:
-                if st.button("✨ Resgatar", key=f"resgatar_{i}_{datetime.now().timestamp()}"):
+                if st.button("✨ Resgatar", key=f"resgatar_{i}"):
                     st.session_state.pontos_totais -= row["Pontos"]
                     salvar_pontos()
 
