@@ -126,5 +126,5 @@ elif pagina == "Dia Atual":
     progresso_df.to_csv("data/progresso.csv", index=False)
 
     st.markdown("---")
-    mostrar_painel_recompensas(st.session_state.pontos_totais)
+    mostrar_painel_recompensas()
 
