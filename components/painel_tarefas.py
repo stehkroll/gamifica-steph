@@ -1,5 +1,3 @@
-# components/painel_tarefas.py
-
 import streamlit as st
 from datetime import datetime
 
@@ -13,5 +11,6 @@ def mostrar_painel_tarefas(df):
         checkbox_id = f"tarefa_{i}"
         if st.checkbox(f"{row['Tarefa']} ({row['Categoria']}) - {row['Pontos']} pts", key=checkbox_id):
             pontos += row["Pontos"]
-    st.success(f"Você ganhou {pontos} pontos hoje!")
+
+    st.success(f"🎉 Você ganhou {pontos} pontos hoje!")
     return pontos
