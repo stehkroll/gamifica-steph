@@ -11,7 +11,11 @@ def mostrar_painel_recompensas(pontos_disponiveis):
     if not os.path.exists(caminho_resgates):
         pd.DataFrame(columns=["Data", "Recompensa", "Pontos"]).to_csv(caminho_resgates, index=False)
 
-    resgates_df = pd.read_csv(caminho_resgates)
+    try:
+        resgates_df = pd.read_csv(caminho_resgates)
+    except pd.errors.EmptyDataError:
+        resgates_df = pd.DataFrame(columns=["Data", "Recompensa", "Pontos"])
+
     recompensas = pd.read_csv("data/recompensas.csv")
     recompensas.columns = recompensas.columns.str.strip()
 
@@ -34,7 +38,7 @@ def mostrar_painel_recompensas(pontos_disponiveis):
                         "Recompensa": row["Nome"],
                         "Pontos": row["Pontos"]
                     }
-                    resgates_df = resgates_df.append(novo_resgate, ignore_index=True)
+                    resgates_df = pd.concat([resgates_df, pd.DataFrame([novo_resgate])], ignore_index=True)
                     resgates_df.to_csv(caminho_resgates, index=False)
                     st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
             else:
