@@ -18,29 +18,34 @@ cores_categorias = {
     "Projetos": "#C89BE0",
 }
 
-# Garante que o arquivo de pontos exista
-pontos_csv = "data/pontos_totais.csv"
+# Garante arquivos e pastas
 os.makedirs("data", exist_ok=True)
-if not os.path.exists(pontos_csv):
-    pd.DataFrame([{"Pontos": 0}]).to_csv(pontos_csv, index=False)
+if not os.path.exists("data/pontos_totais.csv"):
+    pd.DataFrame([{"Pontos": 0}]).to_csv("data/pontos_totais.csv", index=False)
+if not os.path.exists("data/xp_total.csv"):
+    pd.DataFrame([{"XP": 0}]).to_csv("data/xp_total.csv", index=False)
 
-# Carrega estado inicial
+# Session state inicial
 if "tarefas_do_dia" not in st.session_state:
     try:
-        tarefas_salvas = pd.read_csv("data/tarefas_do_dia.csv")["Tarefa"].tolist()
+        st.session_state.tarefas_do_dia = pd.read_csv("data/tarefas_do_dia.csv")["Tarefa"].tolist()
     except FileNotFoundError:
-        tarefas_salvas = []
-    st.session_state.tarefas_do_dia = tarefas_salvas
+        st.session_state.tarefas_do_dia = []
 
 if "pontos_totais" not in st.session_state:
-    pontos_df = pd.read_csv(pontos_csv)
-    st.session_state.pontos_totais = int(pontos_df["Pontos"].iloc[0])
+    st.session_state.pontos_totais = int(pd.read_csv("data/pontos_totais.csv")["Pontos"].iloc[0])
 
+if "total_xp" not in st.session_state:
+    st.session_state.total_xp = int(pd.read_csv("data/xp_total.csv")["XP"].iloc[0])
+
+# Definir página inicial
 pagina_inicial = "Dia Atual" if st.session_state.tarefas_do_dia else "Planejar o Dia"
 pagina = st.sidebar.selectbox("Escolha uma página", ["Planejar o Dia", "Dia Atual"], index=0 if pagina_inicial == "Planejar o Dia" else 1)
 
-# Planejamento
+# Carrega tarefas
 tarefas = pd.read_csv("data/tarefas.csv")
+
+# --------------------------- Planejar o Dia ---------------------------
 if pagina == "Planejar o Dia":
     st.title("📋 Planejar o Dia")
     tarefas_selecionadas = []
@@ -60,7 +65,7 @@ if pagina == "Planejar o Dia":
         pd.DataFrame(tarefas_selecionadas, columns=["Tarefa"]).to_csv("data/tarefas_do_dia.csv", index=False)
         st.success("Tarefas programadas com sucesso! Vá para a página 'Dia Atual'")
 
-# Dia Atual
+# --------------------------- Dia Atual ---------------------------
 elif pagina == "Dia Atual":
     st.title("🌟 Gamificação da Rotina")
     hoje = datetime.today().strftime('%Y-%m-%d')
@@ -89,35 +94,30 @@ elif pagina == "Dia Atual":
 
         if feita_nova and not feita_antes:
             st.session_state.pontos_totais += pontos_tarefa
+            st.session_state.total_xp += pontos_tarefa
 
         novos_status.append({"Tarefa": tarefa, "Feita": feita_nova, "Data": hoje})
-        salvar_pontos()
-    pd.DataFrame(novos_status).to_csv(caminho_status, index=False)
 
+    salvar_pontos()
+    pd.DataFrame([{"XP": st.session_state.total_xp}]).to_csv("data/xp_total.csv", index=False)
+    pd.DataFrame(novos_status).to_csv(caminho_status, index=False)
 
     st.markdown(f"<div style='border: 2px solid #c89be0; padding: 15px; border-radius: 12px; background-color: #f2f2f2; text-align: center; font-size: 20px; margin-top: 20px; color: #000000'>💰 <b>Pontos:</b> {st.session_state.pontos_totais}</div>", unsafe_allow_html=True)
 
     st.markdown("---")
     if st.button("🔄 Resetar Dia"):
-        # Limpa as tarefas planejadas (na memória)
         st.session_state.tarefas_do_dia = []
-
-        # Limpa o CSV de tarefas do dia
         pd.DataFrame(columns=["Tarefa"]).to_csv("data/tarefas_do_dia.csv", index=False)
-
-        # Limpa o CSV com status das tarefas feitas
         pd.DataFrame(columns=["Tarefa", "Feita", "Data"]).to_csv("data/status_tarefas.csv", index=False)
-
-        # Mensagem de sucesso
         st.success("Tarefas resetadas! Volte à página 'Planejar o Dia'")
 
-    nivel, xp_atual, xp_proximo_nivel, progresso = calcular_nivel(st.session_state.pontos_totais)
+    nivel, xp_atual, xp_proximo_nivel, progresso = calcular_nivel(st.session_state.total_xp)
     st.subheader(f"📊 Nível {nivel}")
     st.progress(progresso)
     st.caption(f"Você está a {xp_proximo_nivel - xp_atual} XP de alcançar o nível {nivel + 1}!")
 
     st.markdown("---")
-    st.subheader("🧝 Personalização do Personagem")
+    st.subheader("👽 Personalização do Personagem")
     olho = st.selectbox("Escolha a cor dos olhos:", ["castanho", "azul", "verde", "roxo", "vermelho", "rosa"])
     estilo = st.selectbox("Escolha o estilo de cabelo:", ["sem_cabelo", "curto1", "curto2", "medio_liso", "medio_cacheado", "longo_liso", "longo_cacheado"])
     cor_cabelo = st.selectbox("Escolha a cor do cabelo:", ["preto", "castanho", "vermelho", "rosa", "roxo", "azul", "verde", "loiro", "branco"])
