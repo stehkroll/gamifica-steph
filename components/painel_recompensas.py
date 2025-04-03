@@ -49,6 +49,6 @@ def mostrar_painel_recompensas():
                     resgates_df.to_csv(caminho_resgates, index=False)
                     st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
 
-                    st.experimental_rerun()
+        st.experimental_rerun()
                 else:
                     st.info(f"🔒 Faltam {row['Pontos'] - st.session_state.pontos_totais} pontos")
