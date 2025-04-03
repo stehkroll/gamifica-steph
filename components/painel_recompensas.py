@@ -34,7 +34,7 @@ def mostrar_painel_recompensas():
             )
 
             if st.session_state.pontos_totais >= row["Pontos"]:
-                if st.button("✨ Resgatar", key=f"resgatar_{i}"):
+                if st.button("✨ Resgatar", key=f"resgatar_{row['Nome']}"):
                     st.session_state.pontos_totais -= row["Pontos"]
                     salvar_pontos()
 
@@ -47,6 +47,5 @@ def mostrar_painel_recompensas():
                     resgates_df.to_csv(caminho_resgates, index=False)
 
                     st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
-                    st.experimental_set_query_params(refresh=str(datetime.now().timestamp()))
             else:
                 st.info(f"🔒 Faltam {row['Pontos'] - st.session_state.pontos_totais} pontos")
