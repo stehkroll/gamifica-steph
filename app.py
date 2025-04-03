@@ -117,7 +117,9 @@ elif pagina == "Dia Atual":
         pd.DataFrame(columns=["Tarefa", "Feita", "Data"]).to_csv("data/status_tarefas.csv", index=False)
         st.success("Tarefas resetadas! Volte à página 'Planejar o Dia'")
 
-    nivel, xp_atual, xp_proximo, progresso = calcular_nivel(st.session_state.pontos_totais)
+    xp_df = pd.read_csv("data/xp_total.csv")
+    xp_total = int(xp_df["XP"].iloc[0])
+    nivel, xp_atual, xp_proximo, progresso = calcular_nivel(xp_total)
     st.subheader(f"📊 Nível {nivel}")
     st.progress(progresso)
     st.caption(f"Você está a {xp_proximo - xp_atual} XP de alcançar o nível {nivel + 1}!")
