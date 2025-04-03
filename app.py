@@ -20,16 +20,19 @@ cores_categorias = {
     "Projetos": "#C89BE0",
 }
 
-# Garante que o arquivo de pontos exista
+# Garante que os arquivos existam
 os.makedirs("data", exist_ok=True)
 if not os.path.exists("data/pontos_totais.csv"):
     pd.DataFrame([{"Pontos": 0}]).to_csv("data/pontos_totais.csv", index=False)
+if not os.path.exists("data/status_tarefas.csv"):
+    pd.DataFrame(columns=["Tarefa", "Feita", "Data"]).to_csv("data/status_tarefas.csv", index=False)
 
+# Carrega pontos
 if "pontos_totais" not in st.session_state:
     pontos_df = pd.read_csv("data/pontos_totais.csv")
     st.session_state.pontos_totais = int(pontos_df["Pontos"].iloc[0])
 
-# Verifica se há tarefas salvas
+# Carrega tarefas salvas
 if "tarefas_do_dia" not in st.session_state:
     try:
         tarefas_salvas = pd.read_csv("data/tarefas_do_dia.csv")["Tarefa"].tolist()
@@ -40,6 +43,7 @@ if "tarefas_do_dia" not in st.session_state:
 pagina_inicial = "Dia Atual" if st.session_state.tarefas_do_dia else "Planejar o Dia"
 pagina = st.sidebar.selectbox("Escolha uma página", ["Planejar o Dia", "Dia Atual"], index=0 if pagina_inicial == "Planejar o Dia" else 1)
 
+# Carrega tarefas
 tarefas_df = pd.read_csv("data/tarefas.csv")
 
 if pagina == "Planejar o Dia":
@@ -67,9 +71,9 @@ elif pagina == "Dia Atual":
     tarefas_ativas = tarefas_df[tarefas_df["Tarefa"].isin(st.session_state.tarefas_do_dia)]
 
     caminho_status = "data/status_tarefas.csv"
-    try:
+    if os.path.exists(caminho_status):
         status_df = pd.read_csv(caminho_status)
-    except FileNotFoundError:
+    else:
         status_df = pd.DataFrame(columns=["Tarefa", "Feita", "Data"])
 
     st.subheader("Tarefas para hoje:")
@@ -100,7 +104,6 @@ elif pagina == "Dia Atual":
     salvar_pontos()
     pd.DataFrame(novos_status).to_csv(caminho_status, index=False)
 
-    # Exibe saldo total de pontos
     st.markdown(f"<div style='border: 2px solid #c89be0; padding: 15px; border-radius: 12px; background-color: #f2f2f2; text-align: center; font-size: 20px; margin-top: 20px; color: #000000'>💰 <b>Pontos:</b> {st.session_state.pontos_totais}</div>", unsafe_allow_html=True)
 
     if pontos_ganhos_hoje > 0:
@@ -113,22 +116,14 @@ elif pagina == "Dia Atual":
         pd.DataFrame(columns=["Tarefa", "Feita", "Data"]).to_csv("data/status_tarefas.csv", index=False)
         st.success("Tarefas resetadas! Volte à página 'Planejar o Dia'")
 
-    # Cálculo de XP e Nível com base nos pontos totais GANHOS, não saldo
+    # XP e nível com base nos pontos totais ganhos
     nivel, xp_atual, xp_proximo, progresso = calcular_nivel(st.session_state.pontos_totais)
     st.subheader(f"📊 Nível {nivel}")
     st.progress(progresso)
     st.caption(f"Você está a {xp_proximo - xp_atual} XP de alcançar o nível {nivel + 1}!")
 
-    #st.markdown("---")
-    #st.subheader("👽 Personalização do Personagem")
-    #olho = st.selectbox("Escolha a cor dos olhos:", ["castanho", "azul", "verde", "roxo", "vermelho", "rosa"])
-    #estilo = st.selectbox("Escolha o estilo de cabelo:", ["sem_cabelo", "curto1", "curto2", "medio_liso", "medio_cacheado", "longo_liso", "longo_cacheado"])
-    #cor_cabelo = st.selectbox("Escolha a cor do cabelo:", ["preto", "castanho", "vermelho", "rosa", "roxo", "azul", "verde", "loiro", "branco"])
-    #montar_personagem(olho=olho, cabelo=f"{estilo}_{cor_cabelo}")
-
     progresso_df = pd.DataFrame([[hoje, pontos_ganhos_hoje, nivel]], columns=["Data", "Pontos", "Nivel"])
     progresso_df.to_csv("data/progresso.csv", index=False)
 
     st.markdown("---")
-    mostrar_painel_recompensas(st.session_state.pontos_totais)
-
+    mostrar_painel_recompensas()
