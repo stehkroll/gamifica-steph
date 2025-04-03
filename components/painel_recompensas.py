@@ -28,7 +28,10 @@ def mostrar_painel_recompensas(pontos_disponiveis):
             )
 
         with col2:
-            st.markdown(f"<b>{row['Nome']}</b> - {row['Pontos']} pts")
+            st.markdown(
+                f"<div style='font-size:16px; margin-bottom:5px;'><strong>{row['Nome']}</strong> – {row['Pontos']} pts</div>",
+                unsafe_allow_html=True
+            )
 
             if pontos_disponiveis >= row["Pontos"]:
                 if st.button("✨ Resgatar", key=f"resgatar_{i}_{datetime.now().timestamp()}"):
