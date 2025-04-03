@@ -33,7 +33,7 @@ def mostrar_painel_recompensas():
                 unsafe_allow_html=True
             )
 
-            botao_resgatar = st.button("✨ Resgatar", key=f"resgatar_{i}_{datetime.now().timestamp()}")
+            botao_resgatar = st.button("✨ Resgatar", key=f"resgatar_{i}")
 
             if botao_resgatar and st.session_state.pontos_totais >= row["Pontos"]:
                 st.session_state.pontos_totais -= row["Pontos"]
