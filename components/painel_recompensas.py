@@ -35,18 +35,18 @@ def mostrar_painel_recompensas():
 
             botao_resgatar = st.button("✨ Resgatar", key=f"resgatar_{i}")
 
-            if botao_resgatar and st.session_state.pontos_totais >= row["Pontos"]:
-                st.session_state.pontos_totais -= row["Pontos"]
-                salvar_pontos()
+            if botao_resgatar:
+                if st.session_state.pontos_totais >= row["Pontos"]:
+                    st.session_state.pontos_totais -= row["Pontos"]
+                    salvar_pontos()
 
-                novo_resgate = {
-                    "Data": datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
-                    "Recompensa": row["Nome"],
-                    "Pontos": row["Pontos"]
-                }
-                resgates_df = pd.concat([resgates_df, pd.DataFrame([novo_resgate])], ignore_index=True)
-                resgates_df.to_csv(caminho_resgates, index=False)
-                st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
-                st.experimental_rerun()
-            elif botao_resgatar:
-                st.info(f"🔒 Faltam {row['Pontos'] - st.session_state.pontos_totais} pontos")
+                    novo_resgate = {
+                        "Data": datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
+                        "Recompensa": row["Nome"],
+                        "Pontos": row["Pontos"]
+                    }
+                    resgates_df = pd.concat([resgates_df, pd.DataFrame([novo_resgate])], ignore_index=True)
+                    resgates_df.to_csv(caminho_resgates, index=False)
+                    st.success(f"🎉 Recompensa desbloqueada: {row['Nome']}")
+                else:
+                    st.info(f"🔒 Faltam {row['Pontos'] - st.session_state.pontos_totais} pontos")
