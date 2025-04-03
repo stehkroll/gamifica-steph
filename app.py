@@ -121,12 +121,12 @@ elif pagina == "Dia Atual":
     xp_total = int(xp_df["XP"].iloc[0])
     nivel, xp_atual, xp_proximo, progresso = calcular_nivel(xp_total)
 
-    st.subheader(f"📊 Nível {nivel}")
-    st.progress(progresso)
-    st.caption(f"Você está a {xp_proximo - xp_atual} XP de alcançar o nível {nivel + 1}!")
+    #st.subheader(f"📊 Nível {nivel}")
+    #st.progress(progresso)
+    #st.caption(f"Você está a {xp_proximo - xp_atual} XP de alcançar o nível {nivel + 1}!")
 
-    progresso_df = pd.DataFrame([[hoje, pontos_ganhos_hoje, nivel]], columns=["Data", "Pontos", "Nivel"])
-    progresso_df.to_csv("data/progresso.csv", index=False)
+    #progresso_df = pd.DataFrame([[hoje, pontos_ganhos_hoje, nivel]], columns=["Data", "Pontos", "Nivel"])
+    #progresso_df.to_csv("data/progresso.csv", index=False)
 
     st.markdown("---")
     mostrar_painel_recompensas()
