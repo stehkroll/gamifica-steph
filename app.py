@@ -108,7 +108,7 @@ elif pagina == "Dia Atual":
     st.markdown(f"<div style='border: 2px solid #c89be0; padding: 15px; border-radius: 12px; background-color: #f2f2f2; text-align: center; font-size: 20px; margin-top: 20px; color: #000000'>💰 <b>Pontos:</b> {st.session_state.pontos_totais}</div>", unsafe_allow_html=True)
 
     if pontos_ganhos_hoje > 0:
-        st.success(f"🚀 Você ganhou {pontos_ganhos_hoje} pontos hoje!")
+        st.success(f"🚀 Você ganhou {pontos_ganhos_hoje} pontos!")
 
     st.markdown("---")
     if st.button("🔄 Resetar Dia"):
@@ -120,6 +120,7 @@ elif pagina == "Dia Atual":
     xp_df = pd.read_csv("data/xp_total.csv")
     xp_total = int(xp_df["XP"].iloc[0])
     nivel, xp_atual, xp_proximo, progresso = calcular_nivel(xp_total)
+
     st.subheader(f"📊 Nível {nivel}")
     st.progress(progresso)
     st.caption(f"Você está a {xp_proximo - xp_atual} XP de alcançar o nível {nivel + 1}!")
